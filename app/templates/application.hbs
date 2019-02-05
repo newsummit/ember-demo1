@@ -1,0 +1,12 @@
+<div class="container-flex">
+  <nav class="navbar navbar-light bg-light d-flex justify-content-start align-items-center">
+    {{#link-to "jobs.index" class="nav-item nav-link"}}Jobs{{/link-to}}
+    {{#link-to "chart" class="nav-item nav-link"}}Chart{{/link-to}}
+  </nav>
+
+  <div class="row h-100">
+    <div class="col h-100 p-5">
+      {{outlet}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="h-100 w-100 d-flex justify-content-start align-items-start">
+  <div class="card">
+    <div class="card-header">
+      {{job.company.name}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{job.title}}</h5>
+      <p class="card-text">${{job.salary}}</p>
+      <p class="card-text">{{job.description}}</p>
+    </div>
+    <div class="card-footer text-muted">
+      Viewed {{job.views}} times.
+    </div>
+  </div>
+</div>
