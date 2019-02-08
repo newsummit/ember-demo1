@@ -1,3 +1,6 @@
 <h1>Enter New Job</h1>
 
-{{job-new companies=companies}}
+{{job-new
+  onSubmitJob=(action "addJob")
+  companies=companies
+}}
