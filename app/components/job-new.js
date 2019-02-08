@@ -25,12 +25,10 @@ export default Component.extend({
   ),
 
   actions: {
-
     addJob() {
       const props = getProperties(this, 'title', 'description', 'salary', 'company');
       // Trigger the action passed to this component
       this.onSubmitJob(props);
     }
   }
-
 });
