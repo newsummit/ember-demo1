@@ -12,21 +12,23 @@ export default Component.extend({
    * @private
    * @description Watch required fields for completeness before enabling submit button.
    */
-  isSubmitEnabled: computed(
+  isSubmitDisabled: computed(
     'title',
     'salary',
     'description',
     'company',
     function() {
       const { title, salary, description, company } = this;
-      const requiredFieldArr = [title, salary, description, company];
-      return requiredFieldArr.some(field => isEmpty(field));
+      const requiredFieldValues = [title, salary, description, company];
+      return requiredFieldValues.some(field => isEmpty(field));
     }
   ),
 
   actions: {
+
     addJob() {
       const props = getProperties(this, 'title', 'description', 'salary', 'company');
+      // Trigger the action passed to this component
       this.onSubmitJob(props);
     }
   }

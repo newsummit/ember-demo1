@@ -1,15 +1,31 @@
 <form class="new-job-form" {{action "addJob" on="submit"}}>
   <div class="form-group">
     <label>Title</label>
-    {{input class="form-control" value=title}}
+    <input
+      class="form-control"
+      value={{title}}
+      oninput={{action (mut title) value="target.value"}}
+      data-test-newjob-title
+    >
   </div>
   <div class="form-group">
     <label>Description</label>
-    {{input class="form-control" value=description}}
+    <input
+      class="form-control"
+      value={{description}}
+      oninput={{action (mut description) value="target.value"}}
+      data-test-newjob-description
+    >
   </div>
   <div class="form-group">
     <label>Salary</label>
-    {{input class="form-control" type="number" value=salary}}
+    <input
+      class="form-control"
+      type="number"
+      value={{salary}}
+      oninput={{action (mut salary) value="target.value"}}
+      data-test-newjob-salary
+    >
   </div>
   <div class="form-group">
     <label>Company</label>
@@ -17,6 +33,7 @@
       options=companies
       selected=company
       triggerClass="form-control"
+      triggerId="select-company"
       onchange=(action (mut company)) as |option|}}
       {{option.name}}
     {{/power-select}}
@@ -24,8 +41,9 @@
   <button 
     type="submit"
     class={{concat "btn btn-primary " (if isSubmitEnabled "new-job-form")}}
-    disabled={{isSubmitEnabled}}
+    disabled={{isSubmitDisabled}}
     {{action "addJob" this}}
+    data-test-newjob-submit
   >
     Create
   </button>
