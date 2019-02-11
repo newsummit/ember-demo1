@@ -14,7 +14,7 @@
           </div>
           <div class="job-list__right-block">
             <div class="job-list__title">{{job.title}}</div>
-            <div class="job-list__desc text-truncate">{{job.description}}</div>
+            <div class="job-list__desc">{{truncate-text job.description limit=15}}</div>
           </div>
         {{/link-to}}
       {{/each}}
