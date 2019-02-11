@@ -9,6 +9,43 @@
   max-width: 400px;
 }
 
+.job-list {
+  @extend .h-100;
+
+  &__left-block {
+    width: 10%;
+    margin-left: -10px;
+    display: inline-block;
+  }
+
+  &__right-block {
+    width: 90%;
+    margin-left: 10px;
+    display: inline-block;
+  }
+
+  &__viewed-num {
+    height: 2em;
+    font-size: .8rem;
+    padding: 0 4px;
+    min-width: 2em;
+  }
+
+  &__title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 2em;
+  }
+
+  &__desc {
+    font-size: 80%;
+    width: 15em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
 button:disabled {
   cursor: not-allowed;
 }
