@@ -11,8 +11,9 @@ import { format } from 'd3-format';
 export default Component.extend({
   classNames: ['job-chart'],
   svgEl: null,
-  svgSize: { width: 700, height: 500 },
+  companyData: null,
   chartContainer: null,
+  svgSize: { width: 700, height: 500 },
   chartMargins: {
     top: 20,
     right: 20,
