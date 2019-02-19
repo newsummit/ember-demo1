@@ -3,7 +3,7 @@ import { get, computed, getProperties, setProperties } from '@ember/object';
 
 // Import the D3 packages we want to use
 import { scaleBand, scaleLinear } from 'd3-scale';
-import { axisBottom, axisLeft } from 'd3-axis';
+import { axisBottom, axisLeft, axis } from 'd3-axis';
 import { select } from 'd3-selection';
 import { extent, max } from 'd3-array';
 import { format } from 'd3-format';
@@ -26,6 +26,7 @@ export default Component.extend({
     const data = get(this, 'companyData');
     const numJobsArray = data.map(company => company.numJobs);
 
+    // Used to calculate Y axis ticks and scale
     setProperties(this, {
       jobsDataExtent: extent(numJobsArray), // min and max
       maxNumJobs: max(numJobsArray)
@@ -58,8 +59,7 @@ export default Component.extend({
     return scaleBand()
       .domain(companyData.mapBy('name'))
       .range([0, chartDimensions.width])
-      .paddingOuter(1)
-      .paddingInner(0.3);
+      .paddingOuter(1);
   }),
 
   /**
@@ -85,15 +85,16 @@ export default Component.extend({
       chartMargins: margins,
     } = getProperties(this, 'chartMargins', 'svgSize');
 
-    const container = select(this.element).append('svg')
-      .attr('class', `chart`)
+    // Create an SVG element
+    const svg = select(this.element).append('svg')
       .attr('width', svgSize.width)
       .attr('height', svgSize.height);
 
-    let svg = container.append('g')
+    // Give margins to make space for axis ticks and labels
+    const svgContainer = svg.append('g')
       .attr('transform', `translate(${margins.left},${margins.top})`);
 
-    this.set('svgEl', svg);
+    this.set('svgEl', svgContainer);
   },
 
   /**
@@ -106,12 +107,14 @@ export default Component.extend({
       chartDimensions
     } = getProperties(this, 'svgEl', 'xScale', 'chartDimensions');
 
+    // Holds names, ranges, ticks
     const xAxis = axisBottom(xScale)
       .tickSizeInner(4)
       .tickSizeOuter(0);
 
+    // Lets create a text element for each axis name (or band)
     svgEl.insert('g')
-      .attr('class', 'chart__axis chart__axis--x')
+      .attr('class', 'job-chart__axis-x')
       .attr('transform', `translate(0,${chartDimensions.height})`)
       .call(xAxis)
       .selectAll('text')
@@ -137,19 +140,21 @@ export default Component.extend({
     const diff = jobsDataExtent[1] - jobsDataExtent[0];
     const steps = diff / (ticks - 1);
 
-    // Generate an array of tick values
+    // Generate the correct number of tick values
     const tickValues = Array(ticks)
       .fill()
       .map((item, index) => jobsDataExtent[0] + steps * index);
 
+    // Format the tick values
     const yAxis = axisLeft(yScale)
       .tickValues(tickValues)
       .tickFormat(format('.0f'))
       .tickSizeInner(ticks)
       .tickSizeOuter(ticks);
 
+    // Append them to our SVG
     svgEl.insert('g')
-      .attr('class', 'chart__axis chart__axis--y')
+      .attr('class', 'job-chart__axis-x')
       .call(yAxis);
   },
 
@@ -172,10 +177,10 @@ export default Component.extend({
         return d.numJobs;
       });
 
-    // Append bars to graph svg
+    // Append bars to graph svg, position them
     jobCountBars.enter()
       .append('rect')
-      .attr('class', 'bar-chart__bar')
+      .attr('class', 'job-chart__bar')
       .attr('x', function(d) {
         return xScale(d.name) + xScale.bandwidth() / 8;
       })
@@ -185,8 +190,7 @@ export default Component.extend({
       })
       .attr('height', function(d) {
         return chartDimensions.height - yScale(d.numJobs);
-      })
-      .attr('fill', '#60a425');
+      });
   },
 
   /**
