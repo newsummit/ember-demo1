@@ -10,7 +10,13 @@ export default Route.extend({
   },
 
   setupController(controller, model) {
-    controller.set('jobs', model.jobs);
-    controller.set('companies', model.companies);
+    controller.set('companiesWithJobs', model.companies.map(company => {
+      const numJobs = company.get('jobs').length;
+      return {
+        id: company.id,
+        name: `${company.name} (${numJobs})`,
+        numJobs
+      }
+    }))
   }
 });

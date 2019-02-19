@@ -3,5 +3,5 @@ const { Model, attr, hasMany } = DS;
 
 export default Model.extend({
   name: attr('string'),
-  jobs: hasMany('jobs')
+  jobs: hasMany('jobs', { async: false })
 });
