@@ -1,7 +1,6 @@
-# interview
+# Micro Ember/D3 app
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is a small exercise in building a d3 bar graph showing job count by company.
 
 ## Prerequisites
 
@@ -15,7 +14,7 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd interview`
+* `cd ember-demo-1`
 * `npm install`
 
 ## Running / Development
@@ -25,14 +24,11 @@ You will need the following things properly installed on your computer.
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
 
-## Tasks
-* The `job-new` component has an action handler called `addJob`. There is a handler in the controller
-for `jobs/new` to handle the actual saving of the record.  Wire these up so the record is properly saved.
+## Features/Tasks
+* Save new job records.
 
-* Right now, in a user can submit a new job without filling in all data.  Please disable the submit
-button unless all data is present (don't worry about validation beyond data being in the field).
+* Basic new job input validation.
 
-* On the sidebar, please show the view counts for each job as well as the first 15 characters
-of the description.
+* View counts and summary in side-bar.
 
-* On the `charts` route, please build a d3 bar graph that shows job count by company.
+* D3 bar graph showing job count by company.
